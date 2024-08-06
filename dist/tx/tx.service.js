@@ -76,7 +76,7 @@ var schedule_1 = require("@nestjs/schedule");
 var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var config_1 = require("./utils/config");
-var Permit2_sdk_1 = require("@uniswap/Permit2-sdk");
+var Permit2_sdk_1 = require("@uniswap/permit2-sdk");
 var TxService = (function () {
     function TxService() {
     }
@@ -654,6 +654,7 @@ var TxService = (function () {
                     case 4: return [4, (_d.sent()).data];
                     case 5:
                         result = _d.sent();
+                        console.log(result);
                         newBlockNumber = startBlockNumber;
                         if (!(result.status == 1)) return [3, 9];
                         k = 0;
@@ -721,7 +722,7 @@ var TxService = (function () {
         });
     };
     __decorate([
-        (0, schedule_1.Cron)('*/20 * * * * *'),
+        (0, schedule_1.Cron)('*/10 * * * * *'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
