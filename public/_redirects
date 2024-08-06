@@ -1,0 +1,2 @@
+/api/*  https://calileo-backend.herokuapp.com/:splat 200
+/*  /index.html  200

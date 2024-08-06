@@ -1,13 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserInfo = exports.StopTxDto = exports.RunTxDto = void 0;
-class RunTxDto {
-}
+var RunTxDto = (function () {
+    function RunTxDto() {
+    }
+    return RunTxDto;
+}());
 exports.RunTxDto = RunTxDto;
-class StopTxDto {
-}
+var StopTxDto = (function () {
+    function StopTxDto() {
+    }
+    return StopTxDto;
+}());
 exports.StopTxDto = StopTxDto;
-class UserInfo {
-}
+var UserInfo = (function () {
+    function UserInfo() {
+    }
+    return UserInfo;
+}());
 exports.UserInfo = UserInfo;
 //# sourceMappingURL=run-tx.dto.js.map
