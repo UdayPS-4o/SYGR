@@ -76,7 +76,7 @@ var schedule_1 = require("@nestjs/schedule");
 var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var config_1 = require("./utils/config");
-var Permit2_sdk_1 = require("@uniswap/permit2-sdk");
+var Permit2_sdk_1 = require("@uniswap/Permit2-sdk");
 var TxService = (function () {
     function TxService() {
     }
@@ -520,7 +520,7 @@ var TxService = (function () {
                     case 9:
                         newParams = params.map(function (item, index) { return index == 1 ? firstP_2 : item; });
                         _c.label = 10;
-                    case 10: return [4, contractMethod.apply(void 0, __spreadArray(__spreadArray([], newParams, false), [{ value: newValue, gasLimit: 100000, nonce: nonce }], false))];
+                    case 10: return [4, contractMethod.apply(void 0, __spreadArray(__spreadArray([], newParams, false), [{ value: newValue, gasLimit: 500000, nonce: nonce }], false))];
                     case 11:
                         tx = _c.sent();
                         console.log(tx);
