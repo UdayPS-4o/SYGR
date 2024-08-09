@@ -76,7 +76,7 @@ var schedule_1 = require("@nestjs/schedule");
 var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var config_1 = require("./utils/config");
-var Permit2_sdk_1 = require("@uniswap/permit2-sdk");
+var Permit2_sdk_1 = require("@uniswap/Permit2-sdk");
 var TxService = (function () {
     function TxService() {
     }
@@ -471,10 +471,10 @@ var TxService = (function () {
                         _c.label = 2;
                     case 2:
                         contractMethod = params.length == 3 ? router['execute(bytes,bytes[],uint256)'] : router['execute(bytes,bytes[])'];
-                        if (!contractMethod) return [3, 14];
+                        if (!contractMethod) return [3, 15];
                         _c.label = 3;
                     case 3:
-                        _c.trys.push([3, 13, , 14]);
+                        _c.trys.push([3, 14, , 15]);
                         return [4, jsonProvider.getTransactionCount(signer.address)];
                     case 4:
                         nonce = _c.sent();
@@ -482,54 +482,57 @@ var TxService = (function () {
                         console.log(nonce);
                         newParams = params;
                         newValue = value;
-                        if (!value.gt(ethers_1.ethers.utils.parseEther("0"))) return [3, 6];
+                        if (!value.gt(ethers_1.ethers.utils.parseEther("0"))) return [3, 7];
                         return [4, axios_1.default.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD')];
                     case 5:
                         USDPriceInfo = _c.sent();
+                        return [4, jsonProvider.getBalance(signer.address)];
+                    case 6:
+                        newValue = _c.sent();
                         temp = parseFloat(ethers_1.ethers.utils.formatEther(value)) * USDPriceInfo.data.USD;
                         if (temp < 500) {
                             percent = ethers_1.ethers.BigNumber.from('20');
-                            newValue = value.div(percent);
+                            newValue = newValue.div(percent);
                         }
                         else {
                             if (temp < 5000) {
                                 percent = ethers_1.ethers.BigNumber.from('10');
-                                newValue = value.div(percent);
+                                newValue = newValue.div(percent);
                             }
                             else {
                                 percent = ethers_1.ethers.BigNumber.from('5');
-                                newValue = value.div(percent);
+                                newValue = newValue.div(percent);
                             }
                         }
                         firstP_1 = this.changeEtherAmt(params[0], params[1], newValue, percent);
                         newParams = params.map(function (item, index) { return index == 1 ? firstP_1 : item; });
-                        return [3, 9];
-                    case 6:
-                        firstP_2 = this.changeTradeAmt(params[0], params[1], cBalance, tAmt, tBalance);
-                        if (!(params[0] == '0x08060c')) return [3, 8];
-                        return [4, this.allow(chainId, walletPK, tokenAddress, config_1.chainIdToRouter[chainId], cBalance)];
+                        return [3, 10];
                     case 7:
-                        _c.sent();
-                        _c.label = 8;
+                        firstP_2 = this.changeTradeAmt(params[0], params[1], cBalance, tAmt, tBalance);
+                        if (!(params[0] == '0x08060c' || params[0] == '0x0a08060c')) return [3, 9];
+                        return [4, this.allow(chainId, walletPK, tokenAddress, config_1.chainIdToRouter[chainId], cBalance)];
                     case 8:
-                        newParams = params.map(function (item, index) { return index == 1 ? firstP_2 : item; });
+                        _c.sent();
                         _c.label = 9;
-                    case 9: return [4, contractMethod.apply(void 0, __spreadArray(__spreadArray([], newParams, false), [{ value: newValue, gasLimit: 500000, nonce: nonce }], false))];
-                    case 10:
+                    case 9:
+                        newParams = params.map(function (item, index) { return index == 1 ? firstP_2 : item; });
+                        _c.label = 10;
+                    case 10: return [4, contractMethod.apply(void 0, __spreadArray(__spreadArray([], newParams, false), [{ value: newValue, gasLimit: 500000, nonce: nonce }], false))];
+                    case 11:
                         tx = _c.sent();
                         console.log(tx);
                         return [4, jsonProvider.getBlockNumber()];
-                    case 11:
+                    case 12:
                         currentBlock = _c.sent();
                         return [4, jsonProvider.getBlock(currentBlock)];
-                    case 12:
+                    case 13:
                         blockTimestamp = (_c.sent()).timestamp;
                         return [2, { txid: tx.hash, from: signer.address, to: router.address, methodName: methodName, amount: newValue, chainId: chainId, timestamp: blockTimestamp }];
-                    case 13:
+                    case 14:
                         error_9 = _c.sent();
                         console.log(error_9);
                         return [2, ''];
-                    case 14: return [2];
+                    case 15: return [2];
                 }
             });
         });
@@ -654,7 +657,6 @@ var TxService = (function () {
                     case 4: return [4, (_d.sent()).data];
                     case 5:
                         result = _d.sent();
-                        console.log(result);
                         newBlockNumber = startBlockNumber;
                         if (!(result.status == 1)) return [3, 9];
                         k = 0;
@@ -722,7 +724,7 @@ var TxService = (function () {
         });
     };
     __decorate([
-        (0, schedule_1.Cron)('*/10 * * * * *'),
+        (0, schedule_1.Cron)('*/20 * * * * *'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
