@@ -7,7 +7,7 @@ export declare class TxService {
         address: string;
         amount: BigNumber;
     };
-    changeEtherAmt(command: string, data: string[], amt: BigNumber, percent: BigNumber): string[];
+    changeEtherAmt(command: string, data: string[], amt: BigNumber, prevAmt: BigNumber, percent: BigNumber): string[];
     changeTradeAmt(command: string, data: string[], balance: BigNumber, tAmt: BigNumber, tBalance: BigNumber): string[];
     getAll(): Promise<any>;
     getUser(userId: string): Promise<any>;
