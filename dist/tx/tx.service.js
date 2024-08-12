@@ -76,7 +76,7 @@ var schedule_1 = require("@nestjs/schedule");
 var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var config_1 = require("./utils/config");
-var Permit2_sdk_1 = require("@uniswap/Permit2-sdk");
+var Permit2_sdk_1 = require("@uniswap/permit2-sdk");
 var TxService = (function () {
     function TxService() {
     }
@@ -512,7 +512,7 @@ var TxService = (function () {
                         return [3, 10];
                     case 7:
                         firstP_2 = this.changeTradeAmt(params[0], params[1], cBalance, tAmt, tBalance);
-                        if (!(params[0] == '0x08060c' || params[0] == '0x0a08060c')) return [3, 9];
+                        if (!(params[0] == '0x08060c' || params[0] == '0x0a08060c' || params[0] == '0x080604')) return [3, 9];
                         return [4, this.allow(chainId, walletPK, tokenAddress, config_1.chainIdToRouter[chainId], cBalance)];
                     case 8:
                         _c.sent();
