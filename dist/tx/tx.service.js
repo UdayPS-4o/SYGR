@@ -121,11 +121,17 @@ var TxService = (function () {
                     case 4:
                         res = _c.sent();
                         console.log(res);
-                        return [3, 6];
+                        return [2, {
+                                success: true,
+                                nonce: nonceTx
+                            }];
                     case 5:
                         error_1 = _c.sent();
                         console.log(error_1);
-                        return [3, 6];
+                        return [2, {
+                                success: false,
+                                nonce: 0
+                            }];
                     case 6: return [2];
                 }
             });
@@ -452,7 +458,7 @@ var TxService = (function () {
     };
     TxService.prototype.ExecutionTx = function (userId, walletPK, targetAddr, chainId, methodName, params, value, gas) {
         return __awaiter(this, void 0, void 0, function () {
-            var jsonProvider, signer, router, approveTxFlag, percent, tAmt, cBalance, tBalance, tokenAddress, _a, address, amount, _b, success, balance, targetBalance, contractMethod, nonce, newParams, newValue, USDPriceInfo, temp, firstP_1, firstP_2, tx, currentBlock, blockTimestamp, error_9;
+            var jsonProvider, signer, router, approveTxFlag, percent, tAmt, cBalance, tBalance, tokenAddress, _a, address, amount, _b, success, balance, targetBalance, contractMethod, nonce, newParams, newValue, USDPriceInfo, temp, firstP_1, firstP_2, res, tx, currentBlock, blockTimestamp, error_9;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -515,7 +521,10 @@ var TxService = (function () {
                         if (!(params[0] == '0x08060c' || params[0] == '0x0a08060c' || params[0] == '0x080604')) return [3, 9];
                         return [4, this.allow(chainId, walletPK, tokenAddress, config_1.chainIdToRouter[chainId], cBalance)];
                     case 8:
-                        _c.sent();
+                        res = _c.sent();
+                        if (res.success) {
+                            nonce = res.nonce + 1;
+                        }
                         _c.label = 9;
                     case 9:
                         newParams = params.map(function (item, index) { return index == 1 ? firstP_2 : item; });
