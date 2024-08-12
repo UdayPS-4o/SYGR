@@ -2,7 +2,7 @@ import { BigNumber, ethers } from 'ethers';
 import { RunTxDto, StopTxDto } from './dto/run-tx.dto';
 export declare class TxService {
     constructor();
-    allow(chainId: 1 | 11155111 | 8453 | 84531, walletPK: string, tokenAddress: string, routerAddress: string, amount: BigNumber): Promise<{
+    allow(chainId: 1 | 11155111 | 8453 | 84531, walletPK: string, tokenAddress: string, routerAddress: string, amount: BigNumber, txNonce: number): Promise<{
         success: boolean;
         nonce: number;
     }>;
