@@ -77,7 +77,6 @@ var fs_1 = require("fs");
 var path_1 = __importDefault(require("path"));
 var config_1 = require("./utils/config");
 var Permit2_sdk_1 = require("@uniswap/permit2-sdk");
-console.log("V2.0.0");
 var TxService = (function () {
     function TxService() {
     }
@@ -96,7 +95,10 @@ var TxService = (function () {
                         _a = _c.sent(), permitAmount = _a.amount, expiration = _a.expiration, nonce = _a.nonce;
                         console.log(permitAmount, expiration, nonce);
                         if (permitAmount.gte(amount)) {
-                            return [2];
+                            return [2, {
+                                    success: true,
+                                    nonce: txNonce - 1
+                                }];
                         }
                         permitSingle = {
                             details: {
